@@ -1,3 +1,7 @@
 <h1> This page shows top stuff.  </h1>
 {{test}}
 <a ng-href="#/near"><button> To stuff near me </button></a>
+<div ng-repeat="picture in topPictures()">
+	<h3>{{picture.title}}</h3>
+	<img ng-src="{{picture.link}}"/>
+</div>
