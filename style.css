@@ -1,0 +1,16 @@
+.contentContainer{
+	background-color:blue;
+	height:calc(100vh-48px);
+	/*height: calc(100vh - 100px);*/
+	overflow:scroll;
+}
+
+.bottomNavButton{
+	width:100% !important;
+}
+
+.bottomNavbar{
+	position:fixed !important;
+	bottom:0px;
+	width:100%;
+}

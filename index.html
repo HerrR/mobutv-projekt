@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="sv" ng-app="suckMyProject">
+	<head>
+		<title>Suck My Piek</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="description" content="Projektarbete inom DM2518 Mobilutveckling med webbteknologier." />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" minimal-ui>
+		<meta name="keywords" content="Mobilutveckling, Projekt, DM2518, Suck My App" />
+
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto:100,300,700|Raleway:400' rel='stylesheet' type='text/css'> 
+	    
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	    <script src="node_modules/angular/angular.js"></script>
+	    <script src="node_modules/angular-route/angular-route.js"></script>
+	    <script src="node_modules/angular-resource/angular-resource.js"></script>
+	    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+	    <script src="js/app.js"></script>
+	    <script src="js/appCtrl.js"></script>
+	    <script src="js/topCtrl.js"></script>
+	    <script src="js/nearCtrl.js"></script>
+	    <script src="js/projectService.js"></script>
+	</head>
+	<body ng-controller="AppCtrl">
+		<nav class="header">
+			<center><h2>Suck My App <small>Projekt</small></h2></center>
+		</nav>
+		{{test}}
+		<div ng-view>
+		</div>
+
+	</body>
+</html>
