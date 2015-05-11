@@ -1,16 +1,28 @@
-.contentContainer{
-	background-color:blue;
-	height:calc(100vh-48px);
-	/*height: calc(100vh - 100px);*/
-	overflow:scroll;
+.image{
+	width: 100%;
 }
 
-.bottomNavButton{
-	width:100% !important;
+.image.animated{
+	width: 150%;
 }
 
-.bottomNavbar{
-	position:fixed !important;
-	bottom:0px;
-	width:100%;
+iframe{
+	border: 0;
+	-moz-transform: scale(0.8, 0.8); 
+	-webkit-transform: scale(0.8, 0.8); 
+	-o-transform: scale(0.8, 0.8);
+	-ms-transform: scale(0.8, 0.8);
+	transform: scale(0.8, 0.8); 
+	-moz-transform-origin: top left;
+	-webkit-transform-origin: top left;
+	-o-transform-origin: top left;
+	-ms-transform-origin: top left;
+	transform-origin: top left;
+	/*overflow: hidden;*/
+	width: 100%;
+	/*min-width: 100vw;*/
+}
+
+.container{
+	background-color: #333333;
 }
