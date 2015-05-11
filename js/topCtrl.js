@@ -1,5 +1,5 @@
 suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt) {
-	$scope.test = Projekt.returnVariable();
+	$scope.imagesPerPage = 10;
 	Projekt.apiGetTopPictures();
 	$scope.topPictures = function(){
 		return Projekt.getTopPictures();
