@@ -1,22 +1,22 @@
-<h1> This page shows top stuff.  </h1>
-<a ng-href="#/near"><button> To stuff near me </button></a>
-<button ng-click="nextPicture()">Nästa sida </button>
-<video class="cameraFeedContainer" id="video" width="100" height="100" autoplay></video>
-
-<h2 class="infoText">Picture index: {{currentPictureIndex()}}.</h2>
-<img ng-src="{{currentPicture().link}}"/>
-
-
-<!-- <div ng-repeat="picture in topPictures() | limitTo:imagesPerPage">
-	<div ng-if="!picture.is_album">
-		<div ng-if="picture.animated">
-			<center>
-				<iframe class='image animated' seamless height="{{picture.height}}" width='100%' ng-src="{{picture.gif}}"></iframe>
-			</center>
-		</div>
-		<div ng-if="!picture.animated">
-			<img class='image' ng-src="{{picture.link}}"></img>
-		</div>
+<!-- <h1> This page shows top stuff.  </h1> -->
+<div class="navigationContainer">
+	<button class="menuButton" ng-click="nextPicture()"><img src="img/heart.png"/></button>
+	<button class="menuButton" ng-click="nextPicture()"><img src="img/cross.png"/></button>
+	<div class="scrollable">
+		<video class="cameraFeedContainer" id="video" width="100" height="100" autoplay></video>
 	</div>
-	
-</div> -->
+	<!-- <button class="menuButton" ng-click="test()">Test</button> -->
+</div>
+
+<canvas id="canvas" width="500" height="500" style="border:1px solid yellow;"></canvas>
+
+<h2 class="title">{{currentPicture().title}} <small>{{currentPictureIndex()}}</small></h2>
+<p class="description">{{currentPicture().description}}</p>
+<img ng-show="!currentPicture().animated" class="imageContainer" ng-src="{{currentPicture().link}}"/>
+<iframe class="iFrame" ng-show="currentPicture().animated" type="text/html" width="800" height="400" ng-src="{{trustSrc(currentPicture().gifv)}}" allowfullscreen frameborder="0" style="width:100%; height:800px;">
+
+
+<!-- <video ng-show="!currentPicture().animated" autoplay loop id="backgroundgif">
+    <source ng-src="{{trustSrc(currentPicture().webm)}}" type="video/webm">
+</video> -->
+<!-- <img ng-show="currentPicture().animated" class="imageContainer" ng-src="{{currentPicture().gifv}}"/> -->
