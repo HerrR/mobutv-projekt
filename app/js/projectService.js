@@ -4,6 +4,18 @@ suckMyProject.factory('Projekt',function ($http) {
   var currentPage = 0;
   var currentPictureIndex = 0;
 
+  this.addPictureRef = function(selfie, picID){
+    $.ajax({
+      method: "POST",
+      url: "php/saveSelfie.php",
+      data: {"selfie": selfie, "imgurID":picID},
+      success: function(data){
+        console.log(data);
+      }
+    })
+  }
+  // this.addStuff = $resource('php/.php');
+
   this.setCurrentPage = function(page){
     currentPage = page;
   }

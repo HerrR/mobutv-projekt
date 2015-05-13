@@ -13,15 +13,9 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 		return $sce.trustAsResourceUrl(src);
 	}
 
-	$scope.test = function(){
-		console.log($("#test").contents().find("body").html());
-		// var test = $("#test");
-
-		console.log("TEST!");
-	}
 	function convertCanvasToImage(canvas) {
 		var image = new Image();
-		image.src = canvas.toDataURL("image/png");
+		image.src = canvas.toDataURL("image/jpeg");
 		return image;
 	}
 
@@ -39,7 +33,8 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 
 	$scope.nextPicture = function(){
 		context.drawImage(video, 0, 0, 500, 500);
-		console.log(convertCanvasToImage(canvas));
+		// console.log(convertCanvasToImage(canvas));
+		Projekt.addPictureRef(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		Projekt.setCurrentPictureIndex(Projekt.getCurrentPictureIndex()+1);
 	}
 
