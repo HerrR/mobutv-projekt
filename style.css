@@ -30,12 +30,48 @@ iframe{
 .cameraFeedContainer {
 	border-radius:100px;
 	border:1px solid yellow;
-	position: fixed;
-  	top: 51px;
+	height:100px;
+	width:100px;
+	/*position: fixed;*/
+  	/*top: 51px;*/
   	background-color: #333333;
-  	right: 10px;
+  	/*right: 10px;*/
 }
 
-.infoText {
+.title {
 	color:white;
 }
+
+.description{
+	color:white;
+}
+
+.imageContainer{
+	width:100%;
+}
+
+.navigationContainer {
+	width:100%;
+	height:80px;
+	/*background-color:blue;*/
+}
+
+.menuButton {
+	margin-top:10px;
+	height:70px;
+	width:70px;
+	background-color:white;
+	border:none;
+	border-radius:70px;
+}
+
+.iFrame {
+	-ms-zoom: 0.75;
+	-moz-transform: scale(0.75);
+	-moz-transform-origin: 0 0;
+	-o-transform: scale(0.75);
+	-o-transform-origin: 0 0;
+	-webkit-transform: scale(0.75);
+	-webkit-transform-origin: 0 0;
+}
+

@@ -1,10 +1,30 @@
-suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt) {
+suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
 	var video = document.getElementById("video");
 	var videoObj = {"video":true};
 	var errBack = function(error){
 		$scope.cameraSupported = false;
 		console.log("Video capture error: ", error.code);
 	};
+	$(".scrollable").draggable();
+
+	$scope.trustSrc = function(src) {
+		return $sce.trustAsResourceUrl(src);
+	}
+
+	$scope.test = function(){
+		console.log($("#test").contents().find("body").html());
+		// var test = $("#test");
+
+		console.log("TEST!");
+	}
+	function convertCanvasToImage(canvas) {
+		var image = new Image();
+		image.src = canvas.toDataURL("image/png");
+		return image;
+	}
+
 
 	$scope.imagesPerPage = 10;
 	Projekt.apiGetTopPictures($scope.currentPage);
@@ -18,18 +38,19 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt) {
 	}
 
 	$scope.nextPicture = function(){
+		context.drawImage(video, 0, 0, 500, 500);
+		console.log(convertCanvasToImage(canvas));
 		Projekt.setCurrentPictureIndex(Projekt.getCurrentPictureIndex()+1);
 	}
 
 	$scope.currentPicture = function(){
-		console.log(Projekt.getPicture($scope.currentPictureIndex()));
+		// console.log(Projekt.getPicture($scope.currentPictureIndex()));
 		return Projekt.getPicture($scope.currentPictureIndex());
 	}
 
 	$scope.topPictures = function(){
 		return Projekt.getTopPictures();
 	}
-
 
 	if(navigator.getUserMedia) { // Standard
 		navigator.getUserMedia(videoObj, function(stream) {
