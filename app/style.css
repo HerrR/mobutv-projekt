@@ -1,12 +1,95 @@
-.image{
-	width: 100%;
+body {
+	margin:0px;
+	padding:0px;
+	margin-top:-20px;
 }
 
-.image.animated{
-	width: 100%;
+.header{
+	margin:0px;
+	width:100vw;
+	height:50px;
+	background-color:#3f3f3f;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+
+#headerText {
+	color:white;
+	text-align:center;
+	padding-top:10px;
+	font-family:Raleway;
+	font-weight:200;
+
+}
+
+.footer {
+	width:100vw;
+	background-color:#232323;
+	height:50px;
+}
+
+#footerText{
+	padding-top:15px;
+	color:white;
+	font-family:Raleway;
+	font-weight:200;
+	font-size:10pt;
+	text-align: center;
+	margin:0px;
+}
+
+.title {
+	padding-top:10px;
+	color:white;
+	margin:0px;
+	font-family:Roboto, Sans Serif;
+	font-weight:700;
+	font-size:14pt;
+}
+
+.randomReactionImage{
+	width:250px;
+	height:250px;
+}
+
+.overlay{
+	position:fixed;
+	top:0px;
+	height:100vh;
+	width:100vw;
+}
+
+.overlay.red{
+	background-color:rgba(255,0,0,0.5);
+}
+
+.overlay.green{
+	background-color:rgba(40,150,30,0.5);
+}
+
+.nextButton{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	height:75px;
+	background-color:rgba(255,0,0,0.5);
+	color:white;
+	font-family:Roboto, Sans Serif;
+	font-weight:300;
+	font-size:16pt;
+	border:none;
+}
+
+.nextButton.disliked{
+	background-color:rgba(255,0,0,0.8);
+}
+
+.nextButton.liked{
+	background-color:rgba(40,90,30,0.8);
 }
 
 iframe{
+	display:block;
 	border: 0;
 	-moz-transform: scale(0.8, 0.8); 
 	-webkit-transform: scale(0.8, 0.8); 
@@ -18,13 +101,35 @@ iframe{
 	-o-transform-origin: top left;
 	-ms-transform-origin: top left;
 	transform-origin: top left;
-	/*overflow: hidden;*/
 	width: 100%;
-	/*min-width: 100vw;*/
 }
+
+.reactionFacedContainer{
+	position: fixed;
+	top: 0px;
+	width:100%;
+}
+
+.reactionFaceDiv{
+	background-color:#181818;
+	width:210px;
+	/*border-radius:10px;*/
+}
+
+.reactionFaceCaption{
+	/*color:#0071b9;*/
+	color:white;
+	font-family:Open Sans, Sans Serif;
+	font-weight:400;
+	font-size:10pt;
+	margin-bottom: 0px;
+	text-align: center
+}
+
 
 .container{
 	background-color: #333333;
+	min-height:85vh;
 }
 
 .cameraFeedContainer {
@@ -32,15 +137,9 @@ iframe{
 	border:1px solid yellow;
 	height:100px;
 	width:100px;
-	/*position: fixed;*/
-  	/*top: 51px;*/
   	background-color: #333333;
-  	/*right: 10px;*/
 }
 
-.title {
-	color:white;
-}
 
 .description{
 	color:white;
@@ -53,7 +152,6 @@ iframe{
 .navigationContainer {
 	width:100%;
 	height:80px;
-	/*background-color:blue;*/
 }
 
 .menuButton {
@@ -65,13 +163,4 @@ iframe{
 	border-radius:70px;
 }
 
-.iFrame {
-	-ms-zoom: 0.75;
-	-moz-transform: scale(0.75);
-	-moz-transform-origin: 0 0;
-	-o-transform: scale(0.75);
-	-o-transform-origin: 0 0;
-	-webkit-transform: scale(0.75);
-	-webkit-transform-origin: 0 0;
-}
 

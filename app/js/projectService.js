@@ -20,14 +20,16 @@ suckMyProject.factory('Projekt',function ($http) {
   }
 
   this.saveSelfie = function(selfie, picID){
-    testBlob = selfie;
+    console.log("saveSelfie called!");
+    console.log(selfie);
+    console.log(picID);
     $.ajax({
       method: "POST",
       url: "php/saveSelfie.php",
       data: {"selfie": selfie, "imgurID":picID},
       dataType: "JSON",
       success: function(data){
-        console.log("Data successfully inserted");
+        console.log("Selfie saved successfully!");
       }
     })
   }
