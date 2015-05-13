@@ -1,7 +1,13 @@
 <h1> This page shows top stuff.  </h1>
 <a ng-href="#/near"><button> To stuff near me </button></a>
-<div ng-repeat="picture in topPictures() | limitTo:imagesPerPage">
-	<!-- <h3>{{picture.title}}</h3> -->
+<button ng-click="nextPicture()">Nästa sida </button>
+<video class="cameraFeedContainer" id="video" width="100" height="100" autoplay></video>
+
+<h2 class="infoText">Picture index: {{currentPictureIndex()}}.</h2>
+<img ng-src="{{currentPicture().link}}"/>
+
+
+<!-- <div ng-repeat="picture in topPictures() | limitTo:imagesPerPage">
 	<div ng-if="!picture.is_album">
 		<div ng-if="picture.animated">
 			<center>
@@ -13,4 +19,4 @@
 		</div>
 	</div>
 	
-</div>
+</div> -->
