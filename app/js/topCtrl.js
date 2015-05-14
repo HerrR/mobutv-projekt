@@ -1,19 +1,18 @@
 suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 	var canvas = document.getElementById("canvas");
 	var context = canvas.getContext("2d");
-	$scope.cameraSupported = true;
+	$scope.cameraSupported = function(){
+		return Projekt.getCameraSupported();
+	}
 
 	var video = document.getElementById("video");
 	var videoObj = {"video":true};
 	var errBack = function(error){
-		$scope.cameraSupported = false;
+		Projekt.setCameraSupported(false);
 		console.log("Video capture error: ", error.code);
 	};
 
-	$scope.imagesPerPage = 10;
 	Projekt.apiGetTopPictures($scope.currentPage);
-
-	$(".scrollable").draggable();
 
 	$scope.trustSrc = function(src) {
 		return $sce.trustAsResourceUrl(src);
@@ -27,10 +26,27 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 
 	$scope.randomSelfie = function(){
 		var randomSelfie = Projekt.getRandomSelfie();
-		if(randomSelfie){
-			return randomSelfie;
+		if(Projekt.isLoading()){
+			return "img/loading.gif";
+		} else {		
+			if(randomSelfie){
+				return randomSelfie;
+			} else {
+				return "img/placeholder-reactionface.jpg";
+			}
+		}
+	}
+
+	$scope.hasDescription = function(){
+		var currentPicture = Projekt.getPicture(Projekt.getCurrentPictureIndex());
+		if(currentPicture){
+			if(currentPicture.description){
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return "img/placeholder-reactionface.jpg";
+			return false;
 		}
 	}
 
@@ -49,9 +65,9 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 	$scope.likeCurrentPicture = function(){
 		console.log("Current picture LIKED!");
 		$scope.postLiked = true;
-		context.drawImage(video, 0, 0, 250, 250);
 		Projekt.getSelfie($scope.currentPicture().id);
-		if($scope.cameraSupported){
+		if($scope.cameraSupported()){
+			context.drawImage(video, 0, 0, 250, 250);
 			Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		}
 	}
@@ -59,9 +75,9 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 	$scope.dislikeCurrentPicture = function(){
 		console.log("Current picture DISLIKED");
 		$scope.postDisliked = true;
-		context.drawImage(video, 0, 0, 250, 250);
 		Projekt.getSelfie($scope.currentPicture().id);
-		if($scope.cameraSupported){
+		if($scope.cameraSupported()){
+			context.drawImage(video, 0, 0, 250, 250);
 			Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		}
 	}
@@ -69,6 +85,7 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 	$scope.nextPicture = function(){
 		$scope.postLiked = false;
 		$scope.postDisliked = false;
+		window.scrollTo(0,0);
 		Projekt.setCurrentPictureIndex(Projekt.getCurrentPictureIndex()+1);
 	}
 
@@ -82,20 +99,23 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 
 	if(navigator.getUserMedia) { // Standard
 		navigator.getUserMedia(videoObj, function(stream) {
-			$scope.cameraSupported = true;
+			Projekt.setCameraSupported(true);
+			$scope.$apply();
 			video.src = stream;
 			video.play();
 		}, errBack);
 	} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
 		navigator.webkitGetUserMedia(videoObj, function(stream){
-			$scope.cameraSupported = true;
+			Projekt.setCameraSupported(true);
+			$scope.$apply();
 			video.src = window.URL.createObjectURL(stream);
 			video.play();
 		}, errBack);
 	}
 	else if(navigator.mozGetUserMedia) { // Firefox-prefixed
 		navigator.mozGetUserMedia(videoObj, function(stream){
-			$scope.cameraSupported = true;
+			Projekt.setCameraSupported(true);
+			$scope.$apply();
 			video.src = window.URL.createObjectURL(stream);
 			video.play();
 		}, errBack);

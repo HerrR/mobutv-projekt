@@ -3,6 +3,21 @@ suckMyProject.factory('Projekt',function ($http) {
   var currentPage = 0;
   var currentPictureIndex = 0;
   var randomSelfie;
+  var cameraSupported = false;
+  var loading = false;
+
+  this.setCameraSupported = function(bool){
+    cameraSupported = bool;
+    console.log("Camera supported set to "+bool);
+  }
+
+  this.getCameraSupported = function(){
+    return cameraSupported;
+  }
+
+  this.isLoading = function(){
+    return loading;
+  }
 
   this.apiGetTopPictures = function(page){
     var req = {
@@ -36,6 +51,7 @@ suckMyProject.factory('Projekt',function ($http) {
 
 
   this.getSelfie = function(picID){
+    loading = true;
     var req = {
       method: "GET",
       url: "php/getSelfie.php",
@@ -45,9 +61,11 @@ suckMyProject.factory('Projekt',function ($http) {
     $http(req).success(function(data){
       if(data.selfie != null){
         randomSelfie = data.selfie;
+        loading = false;
       } else {
         randomSelfie = null;
-        console.log("No previous selfie from this image");
+        loading = false;
+        console.log("No previous selfie for pic with id "+picID);
       }
     })
   }
@@ -75,7 +93,9 @@ suckMyProject.factory('Projekt',function ($http) {
   var addTopPicturesNoAlbums = function(pictures){
     for(picture in pictures){
       if(!pictures[picture].is_album){
-        noAlbumPictures.push(pictures[picture]);
+        if(!pictures[picture].animated){
+          noAlbumPictures.push(pictures[picture]);
+        }
       }
     }
   }

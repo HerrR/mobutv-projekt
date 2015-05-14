@@ -1,39 +1,46 @@
+<video class="cameraFeedContainer" ng-show="cameraSupported()" id="video" width="100" height="100" autoplay></video>
 <div class="overlay red" ng-show="postDisliked"></div>
 
 <div class="overlay green" ng-show="postLiked"></div>
 
 
-<div ng-swipe-right="likeCurrentPicture()" ng-swipe-left="dislikeCurrentPicture()">
-<h2 class="title">{{currentPicture().title}}</h2>
-<p class="description">{{currentPicture().description}}</p>
+<center>
+	<div ng-swipe-right="likeCurrentPicture()" ng-swipe-left="dislikeCurrentPicture()" style="max-width:1000px;">
+		<h2 class="title">{{currentPicture().title}}</h2>
+		<p ng-show="hasDescription()" class="description">{{currentPicture().description}}</p>
+		<img ng-show="!currentPicture().animated" class="imageContainer" ng-src="{{currentPicture().link}}"/>
 
-<img ng-show="!currentPicture().animated" class="imageContainer" ng-src="{{currentPicture().link}}"/>
+<!-- <iframe class="iframe" ng-show="currentPicture().animated" type="text/html" ng-src="{{trustSrc(currentPicture().gifv)}}" allowfullscreen frameborder="0"></iframe>
+</div> -->
 
-<iframe class="iFrame" ng-show="currentPicture().animated" type="text/html" width="800" height="400" ng-src="{{trustSrc(currentPicture().gifv)}}" allowfullscreen frameborder="0" style="width:100%; height:800px;"></iframe>
-</div>
+		<div class="reactionFacedContainer" ng-show="postLiked || postDisliked">
+			<center>
+				<div class="reactionFaceDiv">
+					<p class="reactionFaceCaption"> Your reaction face </p>
+						<canvas ng-show="cameraSupported()" id="canvas" width="200" height="200"></canvas>
+					<img src="img/camera-not-supported.jpg" id="cameraNotSupported" ng-hide="cameraSupported()" class="selfie"/>
+				</div>
 
-<div class="reactionFacedContainer" ng-show="postLiked || postDisliked">
-	<center>
-		<div class="reactionFaceDiv">
-			<p class="reactionFaceCaption"> Your reaction face </p>
-			<center><canvas ng-show="cameraSupported" id="canvas" width="200" height="200" style="border:1px solid yellow;"></canvas></center>
+				<div class="reactionFaceDiv">
+					<p class="reactionFaceCaption">Someone elses reaction face</p>
+					<center>
+						<img ng-src="{{randomSelfie()}}" class="selfie"/>
+					</center>
+				</div>
+			</center>
 		</div>
+	</div>
+</center>
+		
 
-		<div class="reactionFaceDiv">
-			<center><img src="img/camera-not-supported.jpg" style="height:200px; width:200px;" ng-hide="cameraSupported"/></center>
-		</div>
+	<!-- 	<div class="reactionFaceDiv">
+		</div> -->
 
-		<div class="reactionFaceDiv">
-			<p class="reactionFaceCaption">Someone elses reaction face</p>
-			<center><img ng-src="{{randomSelfie()}}" style="width:200px; height:200px;"/></center>
-		</div>
-	</center>
 
 	<button class="nextButton disliked" ng-show="postDisliked" ng-click="nextPicture()">Next</button>
 
 	<button class="nextButton liked" ng-show="postLiked" ng-click="nextPicture()">Next</button>
 </div>
 
-<div class="scrollable" ng-show="cameraSupported">
-	<video class="cameraFeedContainer" id="video" width="100" height="100" autoplay></video>
+<div class="scrollable">
 </div>
