@@ -12,7 +12,6 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 		console.log("Video capture error: ", error.code);
 	};
 
-	Projekt.apiGetTopPictures($scope.currentPage);
 
 	$scope.trustSrc = function(src) {
 		return $sce.trustAsResourceUrl(src);
@@ -63,30 +62,55 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 	}
 
 	$scope.likeCurrentPicture = function(){
-		console.log("Current picture LIKED!");
 		$scope.postLiked = true;
+		// $scope.showOverlay = true;
 		Projekt.getSelfie($scope.currentPicture().id);
 		if($scope.cameraSupported()){
 			context.drawImage(video, 0, 0, 250, 250);
-			Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
+			var selfie = convertCanvasToImage(canvas).src;
+			Projekt.setCurrentSelfie(selfie);
+			Projekt.saveSelfie(selfie, $scope.currentPicture().id);
+			// Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		}
 	}
 
 	$scope.dislikeCurrentPicture = function(){
-		console.log("Current picture DISLIKED");
 		$scope.postDisliked = true;
+		// $scope.showOverlay = true;
 		Projekt.getSelfie($scope.currentPicture().id);
 		if($scope.cameraSupported()){
 			context.drawImage(video, 0, 0, 250, 250);
-			Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
+			// console.log(convertCanvasToImage(canvas).src);
+			// $scope.yourFace = convertCanvasToImage(canvas).src;
+			var selfie = convertCanvasToImage(canvas).src;
+			Projekt.setCurrentSelfie(selfie);
+			Projekt.saveSelfie(selfie, $scope.currentPicture().id);
+			// Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		}
 	}
 
 	$scope.nextPicture = function(){
 		$scope.postLiked = false;
+		// $scope.showOverlay = false;
 		$scope.postDisliked = false;
 		window.scrollTo(0,0);
 		Projekt.setCurrentPictureIndex(Projekt.getCurrentPictureIndex()+1);
+		if(Projekt.getCurrentPictureIndex() === (Projekt.numFilteredPictures()-1)){
+			// Last picture
+			Projekt.setCurrentPage(Projekt.getCurrentPage()+1);
+			Projekt.apiGetTopPictures($scope.currentPage());
+
+
+		}
+		// console.log("Picture number "+ Projekt.getCurrentPictureIndex() +" out of "+Projekt.numFilteredPictures());
+	}
+
+	$scope.yourFace = function(){
+		if($scope.cameraSupported()){
+			return Projekt.getCurrentSelfie();
+		} else {
+			return "img/camera-not-supported.jpg";
+		}
 	}
 
 	$scope.currentPicture = function(){
@@ -97,27 +121,32 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 		return Projekt.getTopPictures();
 	}
 
-	if(navigator.getUserMedia) { // Standard
-		navigator.getUserMedia(videoObj, function(stream) {
-			Projekt.setCameraSupported(true);
-			$scope.$apply();
-			video.src = stream;
-			video.play();
-		}, errBack);
-	} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-		navigator.webkitGetUserMedia(videoObj, function(stream){
-			Projekt.setCameraSupported(true);
-			$scope.$apply();
-			video.src = window.URL.createObjectURL(stream);
-			video.play();
-		}, errBack);
+	var startVideo = function(){
+		if(navigator.getUserMedia) { // Standard
+			navigator.getUserMedia(videoObj, function(stream) {
+				Projekt.setCameraSupported(true);
+				$scope.$apply();
+				video.src = stream;
+				video.play();
+			}, errBack);
+		} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+			navigator.webkitGetUserMedia(videoObj, function(stream){
+				Projekt.setCameraSupported(true);
+				$scope.$apply();
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+			}, errBack);
+		}
+		else if(navigator.mozGetUserMedia) { // Firefox-prefixed
+			navigator.mozGetUserMedia(videoObj, function(stream){
+				Projekt.setCameraSupported(true);
+				$scope.$apply();
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+			}, errBack);
+		}
 	}
-	else if(navigator.mozGetUserMedia) { // Firefox-prefixed
-		navigator.mozGetUserMedia(videoObj, function(stream){
-			Projekt.setCameraSupported(true);
-			$scope.$apply();
-			video.src = window.URL.createObjectURL(stream);
-			video.play();
-		}, errBack);
-	}
+
+	startVideo();
+	Projekt.apiGetTopPictures($scope.currentPage());
 });

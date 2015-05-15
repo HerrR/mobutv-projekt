@@ -5,10 +5,11 @@ suckMyProject.factory('Projekt',function ($http) {
   var randomSelfie;
   var cameraSupported = false;
   var loading = false;
+  var currentSelfie = "img/camera-not-supported.jpg";
 
   this.setCameraSupported = function(bool){
     cameraSupported = bool;
-    console.log("Camera supported set to "+bool);
+    // console.log("Camera supported set to "+bool);
   }
 
   this.getCameraSupported = function(){
@@ -20,6 +21,7 @@ suckMyProject.factory('Projekt',function ($http) {
   }
 
   this.apiGetTopPictures = function(page){
+    // console.log("API Request sent!");
     var req = {
       method: "GET",
       url: "https://api.imgur.com/3/gallery/hot/viral/"+page+".json",
@@ -35,9 +37,9 @@ suckMyProject.factory('Projekt',function ($http) {
   }
 
   this.saveSelfie = function(selfie, picID){
-    console.log("saveSelfie called!");
-    console.log(selfie);
-    console.log(picID);
+    // console.log("saveSelfie called!");
+    // console.log(selfie);
+    // console.log(picID);
     $.ajax({
       method: "POST",
       url: "php/saveSelfie.php",
@@ -69,6 +71,15 @@ suckMyProject.factory('Projekt',function ($http) {
       }
     })
   }
+
+  this.getCurrentSelfie = function(){
+    return currentSelfie;
+  }
+
+  this.setCurrentSelfie = function(selfie){
+    currentSelfie = selfie;
+  }
+
   this.getRandomSelfie = function(){
     return randomSelfie;
   }
@@ -102,6 +113,10 @@ suckMyProject.factory('Projekt',function ($http) {
 
   this.getTopPictures = function(){
     return noAlbumPictures;
+  }
+
+  this.numFilteredPictures = function(){
+    return noAlbumPictures.length;
   }
 
   this.getPicture = function(index){
