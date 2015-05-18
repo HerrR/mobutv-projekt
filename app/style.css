@@ -6,6 +6,7 @@ body {
 }
 
 .header{
+	display: flex;
 	margin:0px;
 	width:100vw;
 	height:60px;
@@ -16,11 +17,10 @@ body {
 
 
 #headerText {
-	color:white;
-	text-align:center;
-	padding-top:15px;
-	font-family:Raleway;
-	font-weight:200;
+	height: 35px;
+	padding-top:22px;
+	margin-left: auto;
+	margin-right: auto;
 	/*padding-right:110px;*/
 }
 
@@ -133,6 +133,7 @@ body {
 
 .container{
 	background-color: #333333;
+	margin-top: 60px;
 	min-height:90vh;
 }
 
@@ -156,9 +157,12 @@ body {
 	color:white;
 	box-sizing:border-box;
 	padding:5%;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	background-color:#232323;
 	margin:0px;
 	font-family:Open Sans, Sans Serif;
+	font-size: 10pt;
 	/*font-style:italic;*/
 }
 
@@ -240,6 +244,11 @@ body {
 	color: gray;
 	margin-top: 10px;
 	font-family: Raleway;
+}
+
+#instructions{
+	margin-top: 60px;
+	display: table;
 }
 
 .instruction{
