@@ -5,32 +5,36 @@
 		<center>
 			<div class="reactionFaceDiv">
 				<p class="reactionFaceCaption"> Your reaction face </p>
-				<!-- <img src="img/camera-not-supported.jpg" id="cameraNotSupported" ng-hide="cameraSupported()" class="selfie"/> -->
-				<!-- <center> -->
 					<img ng-src="{{yourFace()}}" class="selfie"/>
-
 			</div>
-		<!-- </center> -->
-		<!-- <center> -->
 			<div class="reactionFaceDiv">
 				<p class="reactionFaceCaption">Someone elses reaction face</p>
-				<!-- <center> -->
-					<img ng-src="{{randomSelfie()}}" class="selfie"/>
-				<!-- </center> -->
+				<img ng-src="{{randomSelfie()}}" class="selfie"/>
 			</div>
 		</center>
 	</div>
-
 	<button class="nextButton" ng-class="{'disliked' : postDisliked, 'liked' : postLiked}" ng-show="postDisliked || postLiked" ng-click="nextPicture()">Next</button>
 </div>
 
 <center>
+	<div id="instructions">
+		<div class="instruction swipeLeft">
+			<img class="swipeIcon swipeLeft" src="img/SwipeLeftIcon.png">
+			<p class="swipeInstruction textLeft">Swipe left to dislike</p>
+		</div>
+		<div class="instruction swipeRight">
+			<p class="swipeInstruction textRight">Swipe right to like</p>
+			<img class="swipeIcon swipeRight" src="img/SwipeRightIcon.png">
+		</div>
+	</div>
+
 	<div ng-swipe-right="likeCurrentPicture()" ng-swipe-left="dislikeCurrentPicture()" style="max-width:1000px;">
-		<h2 class="title">{{currentPicture().title}}</h2>
+		
+		<div class="imageTitle">
+			<h2 class="title">{{currentPicture().title}}</h2>
+		</div>
 		<p ng-show="hasDescription()" class="description">{{currentPicture().description}}</p>
 		<img ng-show="!currentPicture().animated" class="imageContainer" ng-src="{{currentPicture().link}}"/>
-<canvas style="display:none;" id="canvas" width="250" height="250"></canvas>
-<!-- <iframe class="iframe" ng-show="currentPicture().animated" type="text/html" ng-src="{{trustSrc(currentPicture().gifv)}}" allowfullscreen frameborder="0"></iframe>
-</div> -->
+		<canvas style="display:none;" id="canvas" width="250" height="250"></canvas>
 	</div>	
 </center>

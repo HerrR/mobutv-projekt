@@ -5,6 +5,7 @@ suckMyProject.factory('Projekt',function ($http) {
   var randomSelfie;
   var cameraSupported = false;
   var loading = false;
+  var displayInstructions = true;
   var currentSelfie = "img/camera-not-supported.jpg";
 
   this.setCameraSupported = function(bool){

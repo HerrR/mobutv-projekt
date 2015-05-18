@@ -63,44 +63,40 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 
 	$scope.likeCurrentPicture = function(){
 		$scope.postLiked = true;
-		// $scope.showOverlay = true;
+		$("#instructions").remove();
+		$(".imageContainer").addClass('rotate-left').delay(700).fadeOut(1);
 		Projekt.getSelfie($scope.currentPicture().id);
 		if($scope.cameraSupported()){
 			context.drawImage(video, 0, 0, 250, 250);
 			var selfie = convertCanvasToImage(canvas).src;
 			Projekt.setCurrentSelfie(selfie);
 			Projekt.saveSelfie(selfie, $scope.currentPicture().id);
-			// Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		}
 	}
 
 	$scope.dislikeCurrentPicture = function(){
 		$scope.postDisliked = true;
-		// $scope.showOverlay = true;
+		$("#instructions").remove();
+		$(".imageContainer").addClass('rotate-right').delay(700).fadeOut(1);
 		Projekt.getSelfie($scope.currentPicture().id);
 		if($scope.cameraSupported()){
 			context.drawImage(video, 0, 0, 250, 250);
-			// console.log(convertCanvasToImage(canvas).src);
-			// $scope.yourFace = convertCanvasToImage(canvas).src;
 			var selfie = convertCanvasToImage(canvas).src;
 			Projekt.setCurrentSelfie(selfie);
 			Projekt.saveSelfie(selfie, $scope.currentPicture().id);
-			// Projekt.saveSelfie(convertCanvasToImage(canvas).src, $scope.currentPicture().id);
 		}
 	}
 
 	$scope.nextPicture = function(){
-		$scope.postLiked = false;
-		// $scope.showOverlay = false;
+		$(".imageContainer").removeClass('rotate-left rotate-right').fadeIn(400);
 		$scope.postDisliked = false;
+		$scope.postLiked = false;
 		window.scrollTo(0,0);
 		Projekt.setCurrentPictureIndex(Projekt.getCurrentPictureIndex()+1);
 		if(Projekt.getCurrentPictureIndex() === (Projekt.numFilteredPictures()-1)){
 			// Last picture
 			Projekt.setCurrentPage(Projekt.getCurrentPage()+1);
 			Projekt.apiGetTopPictures($scope.currentPage());
-
-
 		}
 		// console.log("Picture number "+ Projekt.getCurrentPictureIndex() +" out of "+Projekt.numFilteredPictures());
 	}

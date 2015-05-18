@@ -55,6 +55,7 @@ body {
 	background-color: #232323;
 	padding-bottom: 0px;
 	text-align: center;
+	margin-top: 30px;
 }
 
 .randomReactionImage{
@@ -63,6 +64,7 @@ body {
 }
 
 .overlay{
+	z-index: 10;
 	position:fixed;
 	top:0px;
 	height:100vh;
@@ -98,34 +100,15 @@ body {
 	background-color:rgba(40,90,30,0.8);
 }
 
-/*iframe{
-	display:block;
-	border: 0;
-	-moz-transform: scale(0.8, 0.8); 
-	-webkit-transform: scale(0.8, 0.8); 
-	-o-transform: scale(0.8, 0.8);
-	-ms-transform: scale(0.8, 0.8);
-	transform: scale(0.8, 0.8); 
-	-moz-transform-origin: top left;
-	-webkit-transform-origin: top left;
-	-o-transform-origin: top left;
-	-ms-transform-origin: top left;
-	transform-origin: top left;
-	width: 100%;
-}*/
-
 .reactionFaceContainer{
+	margin-top: 10px;
 	position: absolute;
 	height: 88%;
 	width: 100%;
-/*	position: fixed;
-	top: 0px;
-	width:100%;*/
 }
 
 .reactionFaceDiv{
 	align-content: center;
-	/*box-sizing: border-box;*/
 	padding-left: 1%;
 	padding-right: 1%;
 	padding-bottom:1%;
@@ -133,22 +116,6 @@ body {
 	text-align: center;
 	max-width: 210px;
 	margin-top: 2%;
-/*  
-	align-content: center;
-	box-sizing: border-box;
-	padding-left: 5px;
-	padding-right: 5px;
-	background-color: #181818;
-	width: 70%;
-	margin-left: 15%;
-	text-align: center;
-	height: 40%;*/
-  /*
-	box-sizing:border-box;
-	padding-left:5px;
-	padding-right:5px;
-	background-color:#181818;
-	width:210px;*/
 }
 
 .reactionFaceCaption{
@@ -241,3 +208,61 @@ body {
 .slideInRight {
   animation-name: slideInRight;
 }*/
+
+.rotate-left {
+	transform: rotate(30deg) scale(0.8);
+	transition: 1s;
+	margin-left: 400px;
+	cursor: e-resize;
+	opacity: 0;
+}
+.rotate-right {
+	transform: rotate(-30deg) scale(0.8);
+	transition: 1s;
+	opacity: 0;
+	margin-left: -400px;
+	cursor: w-resize;
+}
+
+.swipeIcon{
+	height: auto;
+	width: 20%;
+	margin: 20px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.swipeInstruction{
+	display: table-cell;
+	font-size: 14px;
+	width: 80%;
+	vertical-align: middle;
+	color: gray;
+	margin-top: 10px;
+	font-family: Raleway;
+}
+
+.instruction{
+	font-size: 14px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 50%;
+	height: 45px;
+	display: flex;
+}
+
+.swipeLeft{
+	float: left;
+}
+
+.swipeRight{
+	float: right;
+}
+
+.textLeft{
+	text-align: left;
+}
+
+.textRight{
+	text-align: right;
+}
