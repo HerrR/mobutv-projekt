@@ -8,15 +8,16 @@
 	$maxRefID = queryDb($conn, $getMaxRefIDQuery)->fetch_object()->maxRefID;
 
 	if(is_null($maxRefID)){
+		// No previous pictures
 		$refID = null;
 		$return["previousPicturesExists"] = false;
-		// No previous pictures
 	} else if ($maxRefID == 0){
+		// One previous picture
 		$refID = $maxRefID;
 		$return["previousPicturesExists"] = true;
-		// One previous thing
 	} else {
-		$refID = rand(0,$maxRefID);
+		// A number of previous pictures exists -> Randomize an ID from the existing pictures.
+		$refID = rand(0,$maxRefID); 
 		$return["previousPicturesExists"] = true;
 	}
 

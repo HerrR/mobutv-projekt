@@ -1,21 +1,20 @@
-suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
+suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt) {
+	//Prepare the canvas
 	var canvas = document.getElementById("canvas");
 	var context = canvas.getContext("2d");
+
+	// Check for camera support
 	$scope.cameraSupported = function(){
 		return Projekt.getCameraSupported();
 	}
 
+	// Prepare the video
 	var video = document.getElementById("video");
 	var videoObj = {"video":true};
 	var errBack = function(error){
 		Projekt.setCameraSupported(false);
 		console.log("Video capture error: ", error.code);
 	};
-
-
-	$scope.trustSrc = function(src) {
-		return $sce.trustAsResourceUrl(src);
-	}
 
 	function convertCanvasToImage(canvas) {
 		var image = new Image();
@@ -61,12 +60,16 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 		return Projekt.getCurrentPictureIndex();
 	}
 
+	// The code gets a little bit repetative for "likeCurrentPicture" and "dislikeCurrentPicuture", sorry about that!
+	
 	$scope.likeCurrentPicture = function(){
 		$scope.postLiked = true;
 		$("#instructions").remove();
 		$(".imageContainer").addClass('rotate-left').delay(700).fadeOut(1);
+		// Get a reaction pic for the current picture from the database		
 		Projekt.getSelfie($scope.currentPicture().id);
 		if($scope.cameraSupported()){
+			// If the camera is supported, take a picture of the users reactionface
 			context.drawImage(video, 0, 0, 250, 250);
 			var selfie = convertCanvasToImage(canvas).src;
 			Projekt.setCurrentSelfie(selfie);
@@ -78,8 +81,10 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 		$scope.postDisliked = true;
 		$("#instructions").remove();
 		$(".imageContainer").addClass('rotate-right').delay(700).fadeOut(1);
+		// Get a reaction pic for the current picture from the database
 		Projekt.getSelfie($scope.currentPicture().id);
 		if($scope.cameraSupported()){
+			// If the camera is supported, take a picture of the users reactionface
 			context.drawImage(video, 0, 0, 250, 250);
 			var selfie = convertCanvasToImage(canvas).src;
 			Projekt.setCurrentSelfie(selfie);
@@ -93,12 +98,12 @@ suckMyProject.controller('TopCtrl', function ($scope, $http, Projekt, $sce) {
 		$scope.postLiked = false;
 		window.scrollTo(0,0);
 		Projekt.setCurrentPictureIndex(Projekt.getCurrentPictureIndex()+1);
+		
+		// If the user requests the next picture after the last picture in the album we make a new api request to get more images.
 		if(Projekt.getCurrentPictureIndex() === (Projekt.numFilteredPictures()-1)){
-			// Last picture
 			Projekt.setCurrentPage(Projekt.getCurrentPage()+1);
 			Projekt.apiGetTopPictures($scope.currentPage());
 		}
-		// console.log("Picture number "+ Projekt.getCurrentPictureIndex() +" out of "+Projekt.numFilteredPictures());
 	}
 
 	$scope.yourFace = function(){

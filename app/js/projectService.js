@@ -10,7 +10,6 @@ suckMyProject.factory('Projekt',function ($http) {
 
   this.setCameraSupported = function(bool){
     cameraSupported = bool;
-    // console.log("Camera supported set to "+bool);
   }
 
   this.getCameraSupported = function(){
@@ -21,8 +20,8 @@ suckMyProject.factory('Projekt',function ($http) {
     return loading;
   }
 
+  // API call to imgur for their top pictures.
   this.apiGetTopPictures = function(page){
-    // console.log("API Request sent!");
     var req = {
       method: "GET",
       url: "https://api.imgur.com/3/gallery/hot/viral/"+page+".json",
@@ -32,15 +31,12 @@ suckMyProject.factory('Projekt',function ($http) {
       }
     }
     $http(req).success(function(data){
-      console.log(data.data);
+      // Filter out albums (and animated)
       addTopPicturesNoAlbums(data.data);
     });
   }
 
   this.saveSelfie = function(selfie, picID){
-    // console.log("saveSelfie called!");
-    // console.log(selfie);
-    // console.log(picID);
     $.ajax({
       method: "POST",
       url: "php/saveSelfie.php",
@@ -52,7 +48,7 @@ suckMyProject.factory('Projekt',function ($http) {
     })
   }
 
-
+  // Get a reaction pic for the given imgur picture.
   this.getSelfie = function(picID){
     loading = true;
     var req = {
@@ -66,9 +62,9 @@ suckMyProject.factory('Projekt',function ($http) {
         randomSelfie = data.selfie;
         loading = false;
       } else {
+        // No previous selfie for the given picture.
         randomSelfie = null;
         loading = false;
-        console.log("No previous selfie for pic with id "+picID);
       }
     })
   }
@@ -103,6 +99,7 @@ suckMyProject.factory('Projekt',function ($http) {
 
 
   var addTopPicturesNoAlbums = function(pictures){
+    // Filter out albums and animated pictures
     for(picture in pictures){
       if(!pictures[picture].is_album){
         if(!pictures[picture].animated){

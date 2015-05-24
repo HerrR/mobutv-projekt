@@ -1,4 +1,5 @@
 <?php
+	// Configuration file for accessing the database
 	$hostname = 'localhost';
 	$username = 'rbergel';
 	$password = 'rbergel-xmlpub13';
